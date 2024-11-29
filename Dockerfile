@@ -1,23 +1,17 @@
-# Etapa de Build
-FROM maven:3.9.4-eclipse-temurin-21 AS BUILD
+FROM ubuntu:latest AS BUILD
 
-# Define o diretório de trabalho
-WORKDIR /app
-
-# Copia todos os arquivos do projeto
+RUN apt-get update
+RUN apt-get install openjdk-17-jdk -y
 COPY . .
 
-# Compila o projeto com Maven
+RUN apt-get install maven -y
 RUN mvn clean install
 
-# Etapa Final
-FROM openjdk:21-jdk-slim
+FROM openjdk:17-jdk-slim
 
-# Define a porta exposta
 EXPOSE 8080
 
-# Copia o artefato gerado para o contêiner final
-COPY --from=BUILD /app/target/clientes-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /target/clientes-0.0.1-SNAPSHOT.jar app.jar
 
-# Comando de inicialização
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT [ "java", "-jar", "app.jar" ]
+
