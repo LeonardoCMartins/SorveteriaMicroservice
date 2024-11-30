@@ -1,14 +1,15 @@
 package com.microserviceSorveteria.clientes.controllers;
 
 import com.microserviceSorveteria.clientes.dtos.ClienteDto;
-import com.microserviceSorveteria.clientes.models.MenuItem;
 import com.microserviceSorveteria.clientes.services.ClienteService;
 import com.microserviceSorveteria.clientes.services.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.microserviceSorveteria.clientes.models.MenuItem;
 
+import java.awt.*;
 import java.util.List;
 
 
@@ -24,6 +25,12 @@ public class Controller {
     @GetMapping("/menu")
     public List<MenuItem> getMenu() {
         return (List<MenuItem>) menuService.fetchMenu();
+    }
+
+    @PostMapping("/menu")
+    public ResponseEntity<String> addMenuItem(@RequestBody MenuItem newItem) {
+        menuService.sendPostToMenu(newItem);
+        return ResponseEntity.ok("Item enviado com sucesso!");
     }
 
     @PostMapping("/post")
