@@ -28,8 +28,8 @@ public class MenuService {
 
     public MenuService(WebClient.Builder webClientBuilder) {
         HttpClient httpClient = HttpClient.create()
-                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
-                .responseTimeout(Duration.ofSeconds(5))
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 25000)
+                .responseTimeout(Duration.ofSeconds(25))
                 .doOnConnected(conn ->
                         conn.addHandlerLast(new ReadTimeoutHandler(5000, TimeUnit.MILLISECONDS))
                                 .addHandlerLast(new WriteTimeoutHandler(5000, TimeUnit.MILLISECONDS))
