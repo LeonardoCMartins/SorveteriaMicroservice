@@ -24,12 +24,12 @@ public class Controller {
 
     @GetMapping("/menu")
     public List<MenuItem> getMenu() {
-        return (List<MenuItem>) menuService.fetchMenu();
+        return (List<MenuItem>) menuService.getMenu();
     }
 
     @PostMapping("/menu")
     public ResponseEntity<String> addMenuItem(@RequestBody MenuItem newItem) {
-        menuService.sendPostToMenu(newItem);
+        menuService.postMenu(newItem);
         return ResponseEntity.ok("Item enviado com sucesso!");
     }
 
